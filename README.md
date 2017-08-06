@@ -1,0 +1,1 @@
+Simple static blog based on JBake
