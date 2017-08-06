@@ -7,6 +7,14 @@
 
         <div class="col-sm-8 blog-main">
 
+        <#function summary content marker=(config.summary_marker)!"<!-- more -->">
+            <#assign idx = content?index_of(marker) />
+            <#if idx gt 0>
+                <#return content?substring(0,idx)>
+            <#else>
+                <#return content>
+            </#if>
+        </#function>
 
         <#list posts as post>
           <#if (post.status == "published")>
@@ -15,7 +23,8 @@
                   <div class="col-md-8"><h2 class="blog-post-title"> <a href="${post.uri}">${post.title}</a></h2></div>
                   <div class="col-md-4"><p class="blog-post-meta">${post.date?string("dd.MM.yyyy")}</p></div>
               </div>
-              <p>${post.body}</p>
+              <div style="margin-left: 20px; margin-right: 25px; margin-top: 10px;">${summary(post.body)}</div>
+                <a class="btn btn-default" href="${post.uri}">Read More →</a>
             </div>
           </#if>
         </#list>
@@ -33,10 +42,18 @@
         </div><!-- /.blog-main -->
 
         <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
-          <div class="sidebar-module sidebar-module-inset">
-            <h4>About</h4>
-            <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
-          </div>
+            <div class="sidebar-module">
+                <h4>Navigation</h4>
+                <ol class="list-unstyled">
+                    <li><a href="#">Spring</a></li>
+                    <li><a href="#">VueJs</a></li>
+                    <li><a href="#">Docker</a></li>
+                    <li><a href="#">Gradle</a></li>
+                    <li><a href="#">Java</a></li>
+                    <li><a href="#">Clojure</a></li>
+                </ol>
+            </div>
+          <#include "about.ftl">
           <div class="sidebar-module">
             <h4>Archives</h4>
             <ol class="list-unstyled">
